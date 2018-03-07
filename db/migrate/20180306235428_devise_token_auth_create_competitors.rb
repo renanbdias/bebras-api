@@ -1,6 +1,6 @@
-class DeviseTokenAuthCreateDeputies < ActiveRecord::Migration[5.1]
+class DeviseTokenAuthCreateCompetitors < ActiveRecord::Migration[5.1]
   def change
-    create_table(:deputies) do |t|
+    create_table(:competitors) do |t|
       ## Required
       t.string :provider, :null => false, :default => "email"
       t.string :uid, :null => false, :default => ""
@@ -13,7 +13,7 @@ class DeviseTokenAuthCreateDeputies < ActiveRecord::Migration[5.1]
       t.datetime :reset_password_sent_at
 
       ## Rememberable
-      # t.datetime :remember_created_at
+      t.datetime :remember_created_at
 
       ## Trackable
       t.integer  :sign_in_count, :default => 0, :null => false
@@ -35,10 +35,9 @@ class DeviseTokenAuthCreateDeputies < ActiveRecord::Migration[5.1]
 
       ## User Info
       t.string :name
+      t.string :nickname
+      t.string :image
       t.string :email
-      t.string :phone
-      # t.string :city
-      t.string :avatar
 
       ## Tokens
       t.text :tokens
@@ -46,10 +45,10 @@ class DeviseTokenAuthCreateDeputies < ActiveRecord::Migration[5.1]
       t.timestamps
     end
 
-    add_index :deputies, :email,                unique: true
-    add_index :deputies, [:uid, :provider],     unique: true
-    add_index :deputies, :reset_password_token, unique: true
-    # add_index :deputies, :confirmation_token,   unique: true
-    # add_index :users, :unlock_token,       unique: true
+    add_index :competitors, :email,                unique: true
+    add_index :competitors, [:uid, :provider],     unique: true
+    add_index :competitors, :reset_password_token, unique: true
+    # add_index :competitors, :confirmation_token,   unique: true
+    # add_index :competitors, :unlock_token,       unique: true
   end
 end

@@ -4,8 +4,15 @@ Rails.application.routes.draw do
       mount_devise_token_auth_for 'Deputy', at: 'auth', controllers: {
         registrations: 'overrides/registrations',
         sessions: 'overrides/sessions',
-        passwords: 'overrides/passwords',
+        passwords: 'overrides/passwords'
       }
+
+      mount_devise_token_auth_for 'Competitor', at: 'competitor_auth', controllers: {
+        registrations: 'overrides/registrations',
+        sessions: 'overrides/sessions',
+        passwords: 'overrides/passwords'
+      }
+
     end
 	end
 end
