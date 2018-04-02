@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180402210016) do
+ActiveRecord::Schema.define(version: 20180402214338) do
 
   create_table "challenges", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.datetime "challenge_date"
@@ -40,8 +40,10 @@ ActiveRecord::Schema.define(version: 20180402210016) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "challenge_id"
+    t.bigint "exam_id"
     t.index ["challenge_id"], name: "index_competitors_on_challenge_id"
     t.index ["email"], name: "index_competitors_on_email", unique: true
+    t.index ["exam_id"], name: "index_competitors_on_exam_id"
     t.index ["reset_password_token"], name: "index_competitors_on_reset_password_token", unique: true
     t.index ["uid", "provider"], name: "index_competitors_on_uid_and_provider", unique: true
   end
@@ -70,6 +72,15 @@ ActiveRecord::Schema.define(version: 20180402210016) do
     t.index ["uid", "provider"], name: "index_deputies_on_uid_and_provider", unique: true
   end
 
+  create_table "exams", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.bigint "competitor_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["competitor_id"], name: "index_exams_on_competitor_id"
+  end
+
   add_foreign_key "challenges", "deputies"
   add_foreign_key "competitors", "challenges"
+  add_foreign_key "competitors", "exams"
+  add_foreign_key "exams", "competitors"
 end
