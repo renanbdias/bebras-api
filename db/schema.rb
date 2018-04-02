@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180402214338) do
+ActiveRecord::Schema.define(version: 20180402215035) do
 
   create_table "challenges", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.datetime "challenge_date"
@@ -79,8 +79,21 @@ ActiveRecord::Schema.define(version: 20180402214338) do
     t.index ["competitor_id"], name: "index_exams_on_competitor_id"
   end
 
+  create_table "questions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "name"
+    t.integer "difficulty"
+    t.integer "age_group"
+    t.text "explanation"
+    t.text "title"
+    t.bigint "exam_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["exam_id"], name: "index_questions_on_exam_id"
+  end
+
   add_foreign_key "challenges", "deputies"
   add_foreign_key "competitors", "challenges"
   add_foreign_key "competitors", "exams"
   add_foreign_key "exams", "competitors"
+  add_foreign_key "questions", "exams"
 end
