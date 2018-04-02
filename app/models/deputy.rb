@@ -4,4 +4,6 @@ class Deputy < ActiveRecord::Base
 
   include DeviseTokenAuth::Concerns::User
 
+  has_many :challenges, inverse_of: :deputy
+
 end

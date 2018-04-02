@@ -10,7 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180306235428) do
+ActiveRecord::Schema.define(version: 20180402210016) do
+
+  create_table "challenges", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.datetime "challenge_date"
+    t.bigint "deputy_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["deputy_id"], name: "index_challenges_on_deputy_id"
+  end
 
   create_table "competitors", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "provider", default: "email", null: false
@@ -31,6 +39,8 @@ ActiveRecord::Schema.define(version: 20180306235428) do
     t.text "tokens"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "challenge_id"
+    t.index ["challenge_id"], name: "index_competitors_on_challenge_id"
     t.index ["email"], name: "index_competitors_on_email", unique: true
     t.index ["reset_password_token"], name: "index_competitors_on_reset_password_token", unique: true
     t.index ["uid", "provider"], name: "index_competitors_on_uid_and_provider", unique: true
@@ -60,4 +70,6 @@ ActiveRecord::Schema.define(version: 20180306235428) do
     t.index ["uid", "provider"], name: "index_deputies_on_uid_and_provider", unique: true
   end
 
+  add_foreign_key "challenges", "deputies"
+  add_foreign_key "competitors", "challenges"
 end
