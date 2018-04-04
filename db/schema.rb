@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180402215035) do
+ActiveRecord::Schema.define(version: 20180404211256) do
 
   create_table "challenges", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.datetime "challenge_date"
@@ -40,10 +40,8 @@ ActiveRecord::Schema.define(version: 20180402215035) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "challenge_id"
-    t.bigint "exam_id"
     t.index ["challenge_id"], name: "index_competitors_on_challenge_id"
     t.index ["email"], name: "index_competitors_on_email", unique: true
-    t.index ["exam_id"], name: "index_competitors_on_exam_id"
     t.index ["reset_password_token"], name: "index_competitors_on_reset_password_token", unique: true
     t.index ["uid", "provider"], name: "index_competitors_on_uid_and_provider", unique: true
   end
@@ -62,7 +60,6 @@ ActiveRecord::Schema.define(version: 20180402215035) do
     t.string "name"
     t.string "email"
     t.string "phone"
-    t.string "city"
     t.string "avatar"
     t.text "tokens"
     t.datetime "created_at", null: false
@@ -79,21 +76,28 @@ ActiveRecord::Schema.define(version: 20180402215035) do
     t.index ["competitor_id"], name: "index_exams_on_competitor_id"
   end
 
+  create_table "exams_questions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.bigint "exam_id"
+    t.bigint "question_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["exam_id"], name: "index_exams_questions_on_exam_id"
+    t.index ["question_id"], name: "index_exams_questions_on_question_id"
+  end
+
   create_table "questions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name"
     t.integer "difficulty"
     t.integer "age_group"
     t.text "explanation"
     t.text "title"
-    t.bigint "exam_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["exam_id"], name: "index_questions_on_exam_id"
   end
 
   add_foreign_key "challenges", "deputies"
   add_foreign_key "competitors", "challenges"
-  add_foreign_key "competitors", "exams"
   add_foreign_key "exams", "competitors"
-  add_foreign_key "questions", "exams"
+  add_foreign_key "exams_questions", "exams"
+  add_foreign_key "exams_questions", "questions"
 end

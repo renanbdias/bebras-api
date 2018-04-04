@@ -1,4 +1,5 @@
 class Question < ApplicationRecord
-  belongs_to :exam, inverse_of: :questions
+  has_and_belongs_to_many :exams, inverse_of: :questions
+
   validates :title, :difficulty, :explanation, :name, presence: true
 end
