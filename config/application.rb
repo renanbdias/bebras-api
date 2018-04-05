@@ -8,6 +8,8 @@ Bundler.require(*Rails.groups)
 
 module BebrasApi
   class Application < Rails::Application
+    config.generators.test_framework :rspec, controller_specs: false, view_specs: false, routing_specs: false
+    config.generators.fixture_replacement :factory_bot, dir: "spec/factories"
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.1
 
