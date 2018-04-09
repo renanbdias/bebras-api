@@ -6,4 +6,7 @@ class Competitor < ActiveRecord::Base
   belongs_to :challenge, inverse_of: :competitors
 
   has_one :exam, inverse_of: :competitor
+
+  validates :name, :email, presence: true
+
 end
