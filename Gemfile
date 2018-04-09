@@ -17,6 +17,8 @@ gem 'devise_token_auth'
 
 gem 'coffee-rails', '~> 4.2'
 
+gem 'business_process'
+
 # Serializer
 gem 'active_model_serializers', '~> 0.10.0'
 
