@@ -15,6 +15,7 @@ gem 'uglifier', '>= 1.3.0'
 # Devise
 gem 'devise_token_auth'
 
+# Accept OPITIONS
 gem 'coffee-rails', '~> 4.2'
 
 gem 'business_process'
@@ -22,6 +23,7 @@ gem 'business_process'
 # Serializer
 gem 'active_model_serializers', '~> 0.10.0'
 
+gem 'rack-cors', :require => 'rack/cors'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
