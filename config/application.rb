@@ -8,6 +8,12 @@ Bundler.require(*Rails.groups)
 
 module BebrasApi
   class Application < Rails::Application
+    config.middleware.insert_before 0, Rack::Cors do
+      allow do
+        origins '*'
+        resource '*', :headers => :any, :methods => [:get, :post, :options]
+      end
+    end
     config.generators.test_framework :rspec, controller_specs: false, view_specs: false, routing_specs: false
     config.generators.fixture_replacement :factory_bot, dir: "spec/factories"
     # Initialize configuration defaults for originally generated Rails version.
