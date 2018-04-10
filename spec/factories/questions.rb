@@ -7,4 +7,3 @@ FactoryBot.define do
       title { Faker::StarWars.quote }
     end
   end
-  

@@ -10,11 +10,11 @@ RSpec.describe Challenge, type: :model do
       end
     end
 
-    context 'when deputy_id is nil' do
-      subject(:challenge) { build(:challenge, deputy_id: nil) }
-      it 'is invalid if deputy_id is nil' do
+    context 'when deputy is nil' do
+      subject(:challenge) { build(:challenge, deputy: nil) }
+      it 'is invalid if deputy is nil' do
         expect(challenge).to be_invalid
-        expect(challenge.errors).to include :deputy_id
+        expect(challenge.errors).to include :deputy
       end
     end
 

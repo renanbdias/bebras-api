@@ -1,6 +1,6 @@
 FactoryBot.define do
-    factory :deputy do
-        competitor { create(:competitor) }
+    factory :exam do
+      competitor { create :competitor }
+      questions { build_list :question, 15 }
     end
   end
-  
