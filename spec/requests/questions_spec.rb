@@ -1,17 +1,22 @@
 RSpec.describe "Question" do
-  let(:renan) { create :competitor, :renan }
+  let(:competitor) { create :competitor, :competitor_with_exam_and_questions }
 
-  context "Renan requests questions" do
-    # Resume later
-    # before :each do
-    #   response = GetQuestionsService.call(competitor: renan)
-    #   expect(response.success?).to be true
-    #   @renan_questions = response.result
-    # end
+  context "Competitor requests questions" do
+    before :each do
+      response = GetQuestionsService.call(competitor: competitor)
+      expect(response.success?).to be true
+      @questions = response.result
+      @exam = competitor.exam
+    end
 
-    # it "should have 15 questions" do
-    #   expect(@renan_questions).to be >= 15
-    # end
+    it "should have 15 questions" do
+      expect(@questions.count).to be 15
+    end
+
+    it "has correct questions" do
+      expect(@exam.questions).to be @questions
+    end
+
   end
 
 end
