@@ -16,7 +16,5 @@ RSpec.describe "Question" do
     it "has correct questions" do
       expect(@exam.questions).to be @questions
     end
-
   end
-
 end

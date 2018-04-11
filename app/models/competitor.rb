@@ -9,4 +9,7 @@ class Competitor < ActiveRecord::Base
 
   validates :name, :email, presence: true
 
+  def create_competitor_with_exam
+  end
+
 end
