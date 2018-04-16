@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180411202717) do
+ActiveRecord::Schema.define(version: 20180416205801) do
 
   create_table "alternatives", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "alternative_symbol"
@@ -23,10 +23,15 @@ ActiveRecord::Schema.define(version: 20180411202717) do
   end
 
   create_table "challenges", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.datetime "challenge_date"
+    t.datetime "start_date"
     t.bigint "deputy_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "name"
+    t.datetime "actual_start_date"
+    t.datetime "end_date"
+    t.datetime "actual_end_date"
+    t.boolean "did_start", default: false
     t.index ["deputy_id"], name: "index_challenges_on_deputy_id"
   end
 
