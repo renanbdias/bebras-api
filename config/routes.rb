@@ -13,7 +13,9 @@ Rails.application.routes.draw do
         passwords: 'overrides/passwords'
       }
 
-      resources :exam, only: [:index, :new, :create]
+      resources :challenges, only: [:index, :new, :create]
+
+      resources :questions, only: [:index]
 
     end
 	end

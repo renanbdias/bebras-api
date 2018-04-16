@@ -1,4 +1,4 @@
-class Api::ExamController < ApplicationController
+class Api::QuestionsController < ApplicationController
   before_action :authenticate_api_competitor!, only: :index
 
   def index
@@ -9,11 +9,5 @@ class Api::ExamController < ApplicationController
       render_error response.error
     end
   end
-
-  def new
-  end
-
-  def create
-  end
-
 end
+
