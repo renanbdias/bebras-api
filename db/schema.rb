@@ -105,9 +105,7 @@ ActiveRecord::Schema.define(version: 20180411202717) do
     t.datetime "updated_at", null: false
     t.text "html"
     t.integer "right_alternative_id"
-    t.integer "selected_alternative_id"
     t.index ["right_alternative_id"], name: "index_questions_on_right_alternative_id"
-    t.index ["selected_alternative_id"], name: "index_questions_on_selected_alternative_id"
   end
 
   add_foreign_key "alternatives", "questions"
