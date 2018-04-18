@@ -13,7 +13,11 @@ Rails.application.routes.draw do
         passwords: 'overrides/passwords'
       }
 
-      resources :challenges, only: [:index, :new, :create]
+      resources :challenges, only: [:index, :create] do
+        member do
+         post :start_challenge
+       end
+      end
 
       resources :questions, only: [:index]
 

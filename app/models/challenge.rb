@@ -8,4 +8,8 @@ class Challenge < ApplicationRecord
     self.competitors.count
   end
 
+  def current_date
+    DateTime.now
+  end
+
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180416205801) do
+ActiveRecord::Schema.define(version: 20180417212626) do
 
   create_table "alternatives", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "alternative_symbol"
@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(version: 20180416205801) do
     t.datetime "end_date"
     t.datetime "actual_end_date"
     t.boolean "did_start", default: false
+    t.text "firebase_token"
     t.index ["deputy_id"], name: "index_challenges_on_deputy_id"
   end
 
