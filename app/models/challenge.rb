@@ -12,4 +12,12 @@ class Challenge < ApplicationRecord
     DateTime.now
   end
 
+  def exam_end_date
+    ExamDuration.first.exam_duration_in_minutes.minutes.from_now
+  end
+
+  def duration
+    ExamDuration.first.exam_duration_in_minutes
+  end
+
 end

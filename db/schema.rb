@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180417212626) do
+ActiveRecord::Schema.define(version: 20180419205746) do
 
   create_table "alternatives", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "alternative_symbol"
@@ -83,6 +83,12 @@ ActiveRecord::Schema.define(version: 20180417212626) do
     t.index ["email"], name: "index_deputies_on_email", unique: true
     t.index ["reset_password_token"], name: "index_deputies_on_reset_password_token", unique: true
     t.index ["uid", "provider"], name: "index_deputies_on_uid_and_provider", unique: true
+  end
+
+  create_table "exam_durations", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer "exam_duration_in_minutes"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "exams", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
