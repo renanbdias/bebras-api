@@ -28,12 +28,25 @@ class Api::ChallengesController < ApplicationController
     end
   end
 
+  def end_challenge
+    response = EndChallengeService.call(deputy: current_api_deputy, challenge_id: end_challenge_params[:id])
+    if response.success?
+      render json: response.result, status: :ok
+    else
+      render_error response.error
+    end
+  end
+
   private
     def create_params
       params.permit(:start_date, :name)
     end
 
     def start_challenge_params
+      params.permit(:id)
+    end
+
+    def end_challenge_params
       params.permit(:id)
     end
 end

@@ -16,6 +16,7 @@ Rails.application.routes.draw do
       resources :challenges, only: [:index, :create] do
         member do
          post :start_challenge
+         post :end_challenge
        end
       end
 
