@@ -30,7 +30,7 @@ class CreateChallengeService < BusinessProcess::Base
 
       firebase = Firebase::Client.new(base_uri)
 
-      @response = firebase.push("challenges", { name: @challenge.name, did_start: @challenge.did_start })
+      @response = firebase.push("challenges", { name: @challenge.name, did_start: @challenge.did_start, did_finish: @challenge.did_finish })
       unless @response.success?
         fail("Something went wrong on firebase")
       end
