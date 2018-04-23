@@ -15,13 +15,15 @@ Rails.application.routes.draw do
 
       resources :challenges, only: [:index, :create] do
         member do
-         post :start_challenge
-         post :end_challenge
-       end
+          post :start_challenge
+          post :end_challenge
+        end
+        collection do
+          get 'current_server_time', to: 'challenges#current_server_time'
+        end
       end
 
       resources :questions, only: [:index]
-
     end
 	end
 end

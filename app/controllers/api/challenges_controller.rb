@@ -37,6 +37,10 @@ class Api::ChallengesController < ApplicationController
     end
   end
 
+  def current_server_time
+    render json: DateTime.now, status: :ok
+  end
+
   private
     def create_params
       params.permit(:start_date, :name)
