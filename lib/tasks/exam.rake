@@ -6,27 +6,9 @@ namespace :exam do
     create_challenge
     create_competitors
     create_exams_and_questions
+    create_alternatives
+    create_durations
   end
-
-  # desc "Create deputy mock"
-  # task create_deputy: :environment do
-  #   create_deputy
-  # end
-
-  # desc "Create challenge mock"
-  # task create_challenge: :environment do
-  #   create_challenge
-  # end
-
-  # desc "Create competitors mock"
-  # task create_competitors: :environment do
-  #   create_competitors
-  # end
-
-  # desc "Create exams and questions mock"
-  # task create_exams_and_questions: :environment do
-  #   create_exams_and_questions
-  # end
 
   private
 
@@ -61,7 +43,7 @@ namespace :exam do
       @competitors.each do |competitor|
         exam = competitor.build_exam
         15.times.with_index do |index|
-          question = exam.questions.new name: "Questão #{index+1}", difficulty: rand(1..3), age_group: rand(1..3), explanation: "This is the explanation of the question number #{index+1}", title: "This is the title of the question"
+          question = exam.questions.new name: "Questão #{index+1}", difficulty: rand(1..3), age_group: rand(1..3), explanation: "This is the explanation of the question number #{index+1}", title: "This is the title of the question", html: "<h1>Question #{index+1}</h1>"
           if question.valid?
             question.save
           else
@@ -73,4 +55,27 @@ namespace :exam do
       end
       puts "---> Created exams and questions"
     end
+
+    def create_alternatives
+      alterntive_symbols = ["A", "B", "C", "D"]
+      @competitors.each do |competitor|
+        questions = competitor.exam.questions
+        questions.each do |question|
+          4.times.with_index do |index|
+            alternative = question.alternatives.new alternative_symbol: alterntive_symbols[index], description: "test", html_text: "<h1>Há alternativa #{index+1}</h1>"
+            if alternative.valid?
+              alternative.save
+            else
+              raise "Alternative failed"
+            end
+          end
+        end
+      end
+      puts "---> Created alternatives"
+    end
+
+    def create_durations
+      ExamDuration.create exam_duration_in_minutes: 45
+    end
 end
+
