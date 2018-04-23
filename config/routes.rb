@@ -20,6 +20,7 @@ Rails.application.routes.draw do
         end
         collection do
           get 'current_server_time', to: 'challenges#current_server_time'
+          get :firebase_token
         end
       end
 

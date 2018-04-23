@@ -1,5 +1,6 @@
 class Api::ChallengesController < ApplicationController
-  before_action :authenticate_api_deputy!
+  before_action :authenticate_api_deputy!, only: [:index, :create, :start_challenge, :end_challenge, :current_server_time]
+  before_action :authenticate_api_competitor!, only: [:firebase_token]
 
   def index
     response = GetChallengesService.call(deputy: current_api_deputy)
@@ -32,6 +33,15 @@ class Api::ChallengesController < ApplicationController
     response = EndChallengeService.call(deputy: current_api_deputy, challenge_id: end_challenge_params[:id])
     if response.success?
       render json: response.result, status: :ok
+    else
+      render_error response.error
+    end
+  end
+
+  def firebase_token
+    response = GetFirebaseTokenService.call(competitor: current_api_competitor)
+    if response.success?
+      render json: { firebase_token: response.result }, status: :ok
     else
       render_error response.error
     end
