@@ -8,13 +8,9 @@ class Challenge < ApplicationRecord
     self.competitors.count
   end
 
-  def current_date
-    DateTime.now
-  end
-
-  def exam_end_date
-    ExamDuration.first.exam_duration_in_minutes.minutes.from_now
-  end
+  # def exam_end_date
+  #   ExamDuration.first.exam_duration_in_minutes.minutes.from_now
+  # end
 
   def duration
     ExamDuration.first.exam_duration_in_minutes
