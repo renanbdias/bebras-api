@@ -6,7 +6,8 @@ default: &default
   password: root
 development:
   <<: *default
-  database: bebras_api_dev
+  database: projetc_dev_database_name
 test:
   <<: *default
-  database: bebras_api_test
+  database: projetc_test_database_name
+
