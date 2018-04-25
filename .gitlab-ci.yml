@@ -6,6 +6,7 @@ build:
   before_script:
     - source /etc/profile
     - pwd
+    - rvm automount
     - rvm gemset use bebras-api
     - bundle
     - echo "Done build"
