@@ -5,6 +5,7 @@ cache:
 build:
   before_script:
     - pwd
+    - rvm automount
     - rvm gemset use bebras-api
     - bundle
     - echo "Done build"
