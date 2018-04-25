@@ -5,7 +5,7 @@ cache:
 build:
   before_script:
     - pwd
-    - rvm use 2.4.1
+    - rvm use 2.4.0
     - bundle
     - echo "Done build"
   script:
