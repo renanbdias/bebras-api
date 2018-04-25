@@ -5,10 +5,11 @@ cache:
 build:
   before_script:
     - pwd
-    - cat .ruby-version
+    - echo "2.4.0" > .ruby-version
+    - echo "bebras-br-pc" > .ruby-gemset
     - source /etc/profile.d/rvm.sh
-    - rvm automount
-    - rvm gemset use bebras-api
+    - cd .
+    - gem install bundle
     - bundle
     - echo "Done build"
   script:
