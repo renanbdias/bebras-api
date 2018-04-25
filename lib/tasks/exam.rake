@@ -43,7 +43,7 @@ namespace :exam do
       @competitors.each do |competitor|
         exam = competitor.build_exam
         15.times.with_index do |index|
-          question = exam.questions.new name: "Questão #{index+1}", difficulty: rand(1..3), age_group: rand(1..3), explanation: "This is the explanation of the question number #{index+1}", title: "This is the title of the question", html: "<h1>Question #{index+1}</h1>"
+          question = exam.questions.new name: "Lollipops and Toothbrushes", difficulty: rand(1..3), age_group: rand(1..3), explanation: "This is the explanation of the question number #{index+1}", title: "This is the title of the question", html: '<div class="exam__explanation"><p>The little beaver found a corridor full of lollipops and toothbrushes. He starts to walk along the corridor to eat lollipops and he cannot move backward.</p><p>The beaver can always brush his teeth when finding a brush. After eating two lollipops, he must brush his teeth before eating another lollipop.</p><p>In each step he can only eat the lollipop <strong>OR</strong> brush his teeth <strong>OR</strong> keep walking. He cannot take a lollipop or a toothbrush with him to the next step. <strong>How many lollipops can he eat at most while keeping his teeth healthy?</strong></p></div>'
           if question.valid?
             question.save
           else
@@ -62,7 +62,7 @@ namespace :exam do
         questions = competitor.exam.questions
         questions.each do |question|
           4.times.with_index do |index|
-            alternative = question.alternatives.new alternative_symbol: alterntive_symbols[index], description: "test", html_text: "<h1>Há alternativa #{index+1}</h1>"
+            alternative = question.alternatives.new alternative_symbol: alterntive_symbols[index], description: "test", html_text: '<div class="exam__alternative">4</div>'
             if alternative.valid?
               alternative.save
             else

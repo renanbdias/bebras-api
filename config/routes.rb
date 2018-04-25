@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   namespace :api do
     scope :v1 do
       mount_devise_token_auth_for 'Deputy', at: 'auth', controllers: {
