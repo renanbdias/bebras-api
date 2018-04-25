@@ -10,12 +10,12 @@ RSpec.describe Exam, type: :model do
       end
     end
 
-    context 'when questions are nil' do
-      subject(:exam) { build(:exam, questions: []) }
-      it 'is invalid if questions is nil' do
-        expect(exam).to be_invalid
-        expect(exam.errors).to include :questions
-      end
-    end
+    # context 'when questions are nil' do
+    #   subject(:exam) { build(:exam, questions: []) }
+    #   it 'is invalid if questions is nil' do
+    #     expect(exam).to be_invalid
+    #     expect(exam.errors).to include :questions
+    #   end
+    # end
   end
 end
