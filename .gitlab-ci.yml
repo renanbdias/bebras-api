@@ -4,9 +4,8 @@ cache:
 
 build:
   before_script:
-    - source /etc/profile
     - pwd
-    - rvm automount
+    - source /etc/profile.d/rvm.sh
     - rvm gemset use bebras-api
     - bundle
     - echo "Done build"
