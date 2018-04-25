@@ -4,13 +4,12 @@ cache:
 
 build:
   before_script:
-    - pwd
-    # - rvm automount
-    - which rvm
-    - rvm -v
     - ruby -v
-    - rvm gemset use bebras-api
-    - bundle
-    - echo "Done build"
+    - which ruby
+    - gem install bundler --no-ri --no-rdoc
+    - bundle install --quiet
+    - bundle exec rake db:migrate --quiet
+    - bundle exec rake db:test:prepare --quiet
+
   script:
     - rspec
