@@ -5,6 +5,7 @@ cache:
 build:
   before_script:
     - pwd
+    - cd .
     - bundle
     - echo "Done build"
   script:
