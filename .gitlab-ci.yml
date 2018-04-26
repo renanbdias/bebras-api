@@ -1,6 +1,5 @@
 cache:
   paths:
-    # - /home/fabricasoft/.rvm/gems/ruby-2.4.0@bebras-api/gems/
     - .ruby-version
     - .ruby-gemset
 
@@ -25,3 +24,10 @@ deploy_stage:
     - develop
   script:
     - pwd
+    - source /etc/profile.d/rvm.sh
+    - cd .
+    - fuser -k 3000/tcp
+    - git pull origin develop
+    - gem install bundle
+    - bundle
+    - rails s -b 0.0.0.0
