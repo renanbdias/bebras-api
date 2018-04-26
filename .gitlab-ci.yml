@@ -26,7 +26,8 @@ deploy_stage:
     - pwd
     - source /etc/profile.d/rvm.sh
     - cd .
-    - bundle exec pumactl -P /var/run/puma.pid stop
+    - killall -9 rails
+    # - bundle exec pumactl -P /var/run/puma.pid stop
     # - git pull origin develop
     - gem install bundle
     - bundle
