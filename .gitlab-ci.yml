@@ -26,7 +26,7 @@ deploy_stage:
     - pwd
     - source /etc/profile.d/rvm.sh
     - cd .
-    # - kill -9 $(lsof -i tcp:3000 -t)
+    - sudo kill $(sudo lsof -t -i:3000)
     # - git pull origin develop
     - gem install bundle
     - bundle
