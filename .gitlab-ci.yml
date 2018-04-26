@@ -16,3 +16,12 @@ build:
     - echo "Done build"
   script:
     - rspec
+
+
+deploy_stage:
+  stage: deploy
+  environment: Staging
+  only:
+    - develop
+  script:
+    - pwd
