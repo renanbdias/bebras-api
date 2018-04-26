@@ -26,8 +26,9 @@ deploy_stage:
     - pwd
     - source /etc/profile.d/rvm.sh
     - cd .
-    - fuser -k 3000/tcp
+    - kill -9 $(lsof -i tcp:3000 -t)
     - git pull origin develop
     - gem install bundle
     - bundle
+    - rails db:migrate
     - rails s -b 0.0.0.0
