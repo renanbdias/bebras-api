@@ -1,5 +1,8 @@
 {
   "name": "bebras-api",
   "private": true,
-  "dependencies": {}
+  "dependencies": {},
+  "scripts":{
+    "first": "bundle i && mysql.server start && rails db:drop db:create db:migrate && rails exam:seed && rails server -b 0.0.0.0"
+  }
 }
