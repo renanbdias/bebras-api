@@ -1,6 +1,6 @@
 class Api::ChallengesController < ApplicationController
   before_action :authenticate_api_deputy!, only: [:index, :create, :start_challenge, :end_challenge, :current_server_time]
-  before_action :authenticate_api_competitor!, only: [:firebase_token]
+  before_action :authenticate_api_competitor!, only: [:firebase_token, :get_challenge]
 
   def index
     response = GetChallengesService.call(deputy: current_api_deputy)
@@ -49,6 +49,10 @@ class Api::ChallengesController < ApplicationController
 
   def current_server_time
     render json: DateTime.now, status: :ok
+  end
+
+  def get_challenge
+    render json: current_api_competitor.challenge, status: :ok
   end
 
   private
