@@ -10,7 +10,32 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180306235428) do
+ActiveRecord::Schema.define(version: 20180419214526) do
+
+  create_table "alternatives", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "alternative_symbol"
+    t.string "description"
+    t.text "html_text"
+    t.bigint "question_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["question_id"], name: "index_alternatives_on_question_id"
+  end
+
+  create_table "challenges", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.datetime "start_date"
+    t.bigint "deputy_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "name"
+    t.datetime "actual_start_date"
+    t.datetime "end_date"
+    t.datetime "actual_end_date"
+    t.boolean "did_start", default: false
+    t.text "firebase_token"
+    t.boolean "did_finish", default: false
+    t.index ["deputy_id"], name: "index_challenges_on_deputy_id"
+  end
 
   create_table "competitors", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "provider", default: "email", null: false
@@ -31,6 +56,8 @@ ActiveRecord::Schema.define(version: 20180306235428) do
     t.text "tokens"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "challenge_id"
+    t.index ["challenge_id"], name: "index_competitors_on_challenge_id"
     t.index ["email"], name: "index_competitors_on_email", unique: true
     t.index ["reset_password_token"], name: "index_competitors_on_reset_password_token", unique: true
     t.index ["uid", "provider"], name: "index_competitors_on_uid_and_provider", unique: true
@@ -50,7 +77,6 @@ ActiveRecord::Schema.define(version: 20180306235428) do
     t.string "name"
     t.string "email"
     t.string "phone"
-    t.string "city"
     t.string "avatar"
     t.text "tokens"
     t.datetime "created_at", null: false
@@ -60,4 +86,45 @@ ActiveRecord::Schema.define(version: 20180306235428) do
     t.index ["uid", "provider"], name: "index_deputies_on_uid_and_provider", unique: true
   end
 
+  create_table "exam_durations", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer "exam_duration_in_minutes"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "exams", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.bigint "competitor_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["competitor_id"], name: "index_exams_on_competitor_id"
+  end
+
+  create_table "exams_questions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.bigint "exam_id"
+    t.bigint "question_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["exam_id"], name: "index_exams_questions_on_exam_id"
+    t.index ["question_id"], name: "index_exams_questions_on_question_id"
+  end
+
+  create_table "questions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "name"
+    t.integer "difficulty"
+    t.integer "age_group"
+    t.text "explanation"
+    t.text "title"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.text "html"
+    t.integer "right_alternative_id"
+    t.index ["right_alternative_id"], name: "index_questions_on_right_alternative_id"
+  end
+
+  add_foreign_key "alternatives", "questions"
+  add_foreign_key "challenges", "deputies"
+  add_foreign_key "competitors", "challenges"
+  add_foreign_key "exams", "competitors"
+  add_foreign_key "exams_questions", "exams"
+  add_foreign_key "exams_questions", "questions"
 end

@@ -7,8 +7,6 @@ default: &default
 development:
   <<: *default
   database: bebras_api_dev
-# production:
-#     url: <%= ENV['DATABASE_URL'] %>
-# test:
-#   <<: *default
-#   database: avisei_api_test
+test:
+  <<: *default
+  database: bebras_api_test

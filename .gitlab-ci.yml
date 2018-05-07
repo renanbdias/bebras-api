@@ -1,0 +1,35 @@
+cache:
+  paths:
+    - .ruby-version
+    - .ruby-gemset
+
+build:
+  before_script:
+    - pwd
+    - echo "2.4.0" > .ruby-version
+    - echo "bebras-br-pc" > .ruby-gemset
+    - source /etc/profile.d/rvm.sh
+    - cd .
+    - gem install bundle
+    - bundle
+    - echo "Done build"
+  script:
+    - rspec
+
+
+# deploy_stage:
+#   stage: deploy
+#   environment: Staging
+#   only:
+#     - develop
+#   script:
+#     - pwd
+#     - source /etc/profile.d/rvm.sh
+#     - cd .
+#     # - killall -9 ruby
+#     # - bundle exec pumactl -P /var/run/puma.pid stop
+#     # - git pull origin develop
+#     - gem install bundle
+#     - bundle
+#     - rails db:migrate
+#     - rails s -b 0.0.0.0 -p 10000

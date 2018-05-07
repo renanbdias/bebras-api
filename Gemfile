@@ -5,26 +5,51 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-
 gem 'rails', '~> 5.1.4'
 gem 'mysql2'
 # Use Puma as the app server
 gem 'puma', '~> 3.7'
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
+gem 'turbolinks'
+gem 'firebase'
+gem 'rails_admin'
 
 # Devise
 gem 'devise_token_auth'
 
+# Accept OPITIONS
 gem 'coffee-rails', '~> 4.2'
 
+gem 'business_process'
+
+# Serializer
+gem 'active_model_serializers', '~> 0.10.0'
+
+gem 'bootstrap-sass'
+
+gem 'rack-cors', :require => 'rack/cors'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   # Adds support for Capybara system testing and selenium driver
-  gem 'capybara', '~> 2.13'
+  gem 'capybara'
   gem 'selenium-webdriver'
+  gem 'factory_bot_rails'
+  gem 'rspec-rails'
+
+  gem 'spring'
+  gem 'responders'
+  gem 'faker'
+
+end
+
+group :test do
+  gem 'guard-rspec'
+  gem 'spring-commands-rspec'
+  gem 'database_cleaner'
+  gem 'airborne'
 end
 
 group :development do

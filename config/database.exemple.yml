@@ -1,0 +1,13 @@
+default: &default
+  adapter: mysql2
+  pool: 5
+  timeout: 5000
+  username: root
+  password: root
+development:
+  <<: *default
+  database: projetc_dev_database_name
+test:
+  <<: *default
+  database: projetc_test_database_name
+
