@@ -1,5 +1,5 @@
 class Api::ChallengesController < ApplicationController
-  before_action :authenticate_api_deputy!, only: [:index, :create, :start_challenge, :end_challenge, :current_server_time]
+  before_action :authenticate_api_deputy!, only: [:index, :create, :start_challenge, :end_challenge]
   before_action :authenticate_api_competitor!, only: [:firebase_token, :get_challenge]
 
   def index
