@@ -9,7 +9,7 @@ Todas requisições precisam da indicação de qual versão será utilizada apó
 Exemplo: `#`
 
 ## Instalação do Projeto
-------------------------
+
 
 ### Dependências
 
@@ -88,4 +88,46 @@ $ rails s -b 0.0.0.0
 ```
 
 # Documentação (API)
+
+## Árvore de diretórios
+
+```
+.
+├── app
+│   ├── assets
+│   │   ├── config
+│   │   ├── images
+│   │   ├── javas
+│   │   └── stylesheets
+│   ├── controllers
+│   ├── mailers
+│   ├── models
+│   ├── serializers
+│   ├── services
+│   └── views
+│       ├── api
+│       ├── deputies
+│       │   ├── confirmations
+│       │   ├── mailer
+│       │   ├── passwords
+│       │   ├── registrations
+│       │   ├── sessions
+│       │   ├── shared
+│       ├── devise
+│       │   ├── confirmations
+│       │   ├── mailer
+│       │   ├── passwords
+│       │   ├── registrations
+│       │   ├── sessions
+│       │   ├── shared
+│       └── layouts
+├── config
+├── db
+├── lib
+├── public
+├── spec
+├── test
+└── vendor
+
+```
 
