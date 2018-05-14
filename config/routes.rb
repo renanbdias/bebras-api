@@ -26,7 +26,11 @@ Rails.application.routes.draw do
         end
       end
 
-      resources :questions, only: [:index]
+      resources :questions, only: [:index] do
+        # member do
+        #   post :answer
+        # end
+      end
     end
 	end
 end
