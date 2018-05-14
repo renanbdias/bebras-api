@@ -45,7 +45,7 @@ class AnswerQuestion < BusinessProcess::Base
 
     def get_exam_question
       unless @exam_questions = ExamsQuestion.all.where(exam_id: exam.id, question_id: question_id)
-        fail "Didknsfadjbdflijas" # TODO
+        fail "Questões não encontradas"
       end
     end
 
@@ -53,7 +53,7 @@ class AnswerQuestion < BusinessProcess::Base
       @exam_question = @exam_questions.first
       @exam_question.alternative = @selected_alternative
       unless @exam_question.valid? && @exam_question.save
-        fail "asdfasdf"
+        fail "Alternativa selecionada não foi salva"
       end
     end
 end
