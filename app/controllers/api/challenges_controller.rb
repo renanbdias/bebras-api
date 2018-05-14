@@ -1,5 +1,5 @@
 class Api::ChallengesController < ApplicationController
-  before_action :authenticate_api_deputy!, only: [:index, :create, :start_challenge, :end_challenge]
+  before_action :authenticate_api_deputy!, only: [:index, :create, :start_challenge, :end_challenge, :competitors]
   before_action :authenticate_api_competitor!, only: [:firebase_token, :get_challenge]
 
   def index
@@ -13,6 +13,15 @@ class Api::ChallengesController < ApplicationController
 
   def create
     response = CreateChallengeService.call(start_date: create_params[:start_date], deputy: current_api_deputy, name: create_params[:name])
+    if response.success?
+      render json: response.result, status: :ok
+    else
+      render_error response.error
+    end
+  end
+
+  def competitors
+    response = GetCompetitorsFromChallenge.call(deputy: current_api_deputy, challenge_id: competitors_params[:id])
     if response.success?
       render json: response.result, status: :ok
     else
@@ -56,6 +65,10 @@ class Api::ChallengesController < ApplicationController
   end
 
   private
+    def competitors_params
+      params.permit(:id)
+    end
+
     def create_params
       params.permit(:start_date, :name)
     end
