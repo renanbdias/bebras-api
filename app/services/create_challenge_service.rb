@@ -5,7 +5,8 @@ class CreateChallengeService < BusinessProcess::Base
 
   include ServiceExceptionHandler
 
-  steps :create_challenge,
+  steps :check_start_date,
+        :create_challenge,
         :create_on_firebase,
         :update_model_with_firebase_token
 
@@ -18,8 +19,15 @@ class CreateChallengeService < BusinessProcess::Base
   end
 
   private
+    def check_start_date
+      @parsed_date = DateTime.parse(start_date)
+      unless @parsed_date > DateTime.now
+        fail "Date must be in the future"
+      end
+    end
+
     def create_challenge
-      @challenge = deputy.challenges.create start_date: start_date, name: name
+      @challenge = deputy.challenges.create(start_date: @parsed_date, name: name, end_date: (@parsed_date + ExamDuration.first.exam_duration_in_minutes.minutes))
       unless @challenge.valid? && @challenge.save
         fail(@challenge.errors)
       end
