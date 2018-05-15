@@ -18,6 +18,8 @@ Rails.application.routes.draw do
         member do
           post :start_challenge
           post :end_challenge
+          get :competitors
+          post :add_competitor
         end
         collection do
           get 'current_server_time', to: 'challenges#current_server_time'
