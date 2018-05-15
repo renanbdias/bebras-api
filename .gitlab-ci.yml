@@ -12,6 +12,7 @@ build:
     - cd .
     - gem install bundle
     - bundle
+    - rails db:migrate
     - echo "Done build"
   script:
     - rspec
