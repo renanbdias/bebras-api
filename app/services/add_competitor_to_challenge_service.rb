@@ -38,7 +38,7 @@ class AddCompetitorToChallengeService < BusinessProcess::Base
       @challenge.competitors.append @competitor
       unless @challenge.valid? && @challenge.save
         @competitor.destroy
-        fail "Error adding competitor"
+        fail "Error adding competitor Error: #{@challenge.errors.full_messages}"
       end
     end
 

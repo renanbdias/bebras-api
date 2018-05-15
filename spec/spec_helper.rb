@@ -24,6 +24,10 @@ RSpec.configure do |config|
   config.include FactoryBot::Syntax::Methods
 
   config.after(:suite) do
+    ExamDuration.create exam_duration_in_minutes: 45
+  end
+
+  config.after(:suite) do
     DatabaseCleaner.clean_with(:truncation)
   end
   # rspec-expectations config goes here. You can use an alternate

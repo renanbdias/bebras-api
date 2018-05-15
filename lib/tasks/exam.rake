@@ -2,12 +2,12 @@ namespace :exam do
 
   desc "Populate DB with fake data"
   task seed: :environment do
+    create_durations
     create_deputy
     create_challenge
     create_competitors
     create_exams_and_questions
     create_alternatives
-    create_durations
   end
 
   private
