@@ -1,5 +1,5 @@
 class Api::ChallengesController < ApplicationController
-  before_action :authenticate_api_deputy!, only: [:index, :create, :start_challenge, :end_challenge, :competitors, :add_competitor, :update, :destroy]
+  before_action :authenticate_api_deputy!, only: [:index, :create, :start_challenge, :end_challenge, :competitors, :add_competitor, :update, :destroy, :remove_competitor]
   before_action :authenticate_api_competitor!, only: [:firebase_token, :get_challenge]
   # TODO change to except later
 
@@ -46,6 +46,16 @@ class Api::ChallengesController < ApplicationController
   ## GET /api/v1/challenges/:id/competitors
   def competitors
     response = GetCompetitorsFromChallenge.call(deputy: current_api_deputy, challenge_id: competitors_params[:id])
+    if response.success?
+      render json: response.result, status: :ok
+    else
+      render_error response.error
+    end
+  end
+
+  ## POST /api/v1/challenges/:id/remove_competitor
+  def remove_competitor
+    response = RemoveCompetitorService.call(deputy: current_api_deputy, challenge_id: params[:id], competitor_id: remove_competitor_params[:competitor_id])
     if response.success?
       render json: response.result, status: :ok
     else
@@ -106,6 +116,10 @@ class Api::ChallengesController < ApplicationController
   end
 
   private
+    def remove_competitor_params
+      params.permit(:competitor_id)
+    end
+
     def update_params
       params.permit(:start_date, :name)
     end
