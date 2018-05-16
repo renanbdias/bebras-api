@@ -14,7 +14,7 @@ Rails.application.routes.draw do
         passwords: 'overrides/passwords'
       }
 
-      resources :challenges, only: [:index, :create] do
+      resources :challenges, only: [:index, :create, :update] do
         member do
           post :start_challenge
           post :end_challenge
