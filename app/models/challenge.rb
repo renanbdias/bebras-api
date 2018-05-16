@@ -1,6 +1,6 @@
 class Challenge < ApplicationRecord
   belongs_to :deputy, inverse_of: :challenges
-  has_many :competitors, inverse_of: :challenge
+  has_many :competitors, inverse_of: :challenge, dependent: :destroy
 
   validates :start_date, :end_date, :deputy, :name, presence: true
 
