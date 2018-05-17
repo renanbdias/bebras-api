@@ -7,9 +7,6 @@ class Competitor < ActiveRecord::Base
 
   has_one :exam, inverse_of: :competitor
 
-  validates :name, :email, presence: true
-
-  def create_competitor_with_exam
-  end
+  validates :name, :email, :generated_password, :age, presence: true
 
 end

@@ -2,12 +2,12 @@ namespace :exam do
 
   desc "Populate DB with fake data"
   task seed: :environment do
+    create_durations
     create_deputy
     create_challenge
     create_competitors
     create_exams_and_questions
     create_alternatives
-    create_durations
   end
 
   private
@@ -31,10 +31,10 @@ namespace :exam do
     def create_competitors
       @competitors = []
       Challenge.all.each do |challenge|
-        @competitors.append(challenge.competitors.create name: "Jonathan", email: "jonathan@gmail.com", password: "secret123")
-        @competitors.append(challenge.competitors.create name: "Bruno", email: "bruno@gmail.com", password: "secret123")
-        @competitors.append(challenge.competitors.create name: "Victor", email: "victor@gmail.com", password: "secret123")
-        @competitors.append(challenge.competitors.create name: "Kramer", email: "kramer@gmail.com", password: "secret123")
+        @competitors.append(challenge.competitors.create name: "Jonathan", email: "jonathan@gmail.com", password: "secret123", generated_password: "secret123", age: 17)
+        @competitors.append(challenge.competitors.create name: "Bruno", email: "bruno@gmail.com", password: "secret123", generated_password: "secret123", age: 17)
+        @competitors.append(challenge.competitors.create name: "Victor", email: "victor@gmail.com", password: "secret123", generated_password: "secret123", age: 17)
+        @competitors.append(challenge.competitors.create name: "Kramer", email: "kramer@gmail.com", password: "secret123", generated_password: "secret123", age: 17)
         puts "---> Created competitor"
       end
     end
