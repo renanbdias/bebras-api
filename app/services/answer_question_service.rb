@@ -1,4 +1,4 @@
-class AnswerQuestion < BusinessProcess::Base
+class AnswerQuestionService < BusinessProcess::Base
   needs :competitor
   needs :question_id
   needs :alternative_id
@@ -8,7 +8,9 @@ class AnswerQuestion < BusinessProcess::Base
   steps :get_exam,
         :get_questions,
         :get_question,
-        :get_selected_alternative
+        :get_selected_alternative,
+        :get_exam_question,
+        :save_alternative_on_exam
 
   def call
     handle_exception do
@@ -20,7 +22,7 @@ class AnswerQuestion < BusinessProcess::Base
 
   private
     def get_exam
-      unless @exam = current_api_competitor.exam
+      unless @exam = competitor.exam
         fail "Desafio não encontrado"
       end
     end
@@ -30,7 +32,7 @@ class AnswerQuestion < BusinessProcess::Base
         fail "Questões não encontradas"
       end
     end
-    
+
     def get_question
       unless @question = @questions.find_by(id: question_id)
         fail "Questão não encontrada"
@@ -38,14 +40,14 @@ class AnswerQuestion < BusinessProcess::Base
     end
 
     def get_selected_alternative
-      unless @selected_alternative = @questions.alternatives.find_by(id: alternative_id)
+      unless @selected_alternative = @question.alternatives.find_by(id: alternative_id)
         fail "Alternativa selecionada não encontrada"
       end
     end
 
     def get_exam_question
-      unless @exam_questions = ExamsQuestion.all.where(exam_id: exam.id, question_id: question_id)
-        fail "Questões não encontradas"
+      unless @exam_questions = ExamsQuestion.all.where(exam_id: @exam.id, question_id: question_id)
+        fail "Exam Questions not found"
       end
     end
 
@@ -53,7 +55,7 @@ class AnswerQuestion < BusinessProcess::Base
       @exam_question = @exam_questions.first
       @exam_question.alternative = @selected_alternative
       unless @exam_question.valid? && @exam_question.save
-        fail "Alternativa selecionada não foi salva"
+        fail "Couldn't save alternative"
       end
     end
 end

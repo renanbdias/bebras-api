@@ -6,8 +6,23 @@ namespace :exam do
     create_deputy
     create_challenge
     create_competitors
-    create_exams_and_questions
-    create_alternatives
+    create_question_and_alternative
+    setup_exam
+  end
+
+  desc "create_competitors"
+  task create_competitors: :environment do
+    create_competitors
+  end
+
+  desc "create_question_and_alternative"
+  task create_question_and_alternative: :environment do
+    create_question_and_alternative
+  end
+
+  desc "setup_exam"
+  task setup_exam: :environment do
+    setup_exam
   end
 
   private
@@ -29,49 +44,44 @@ namespace :exam do
     end
 
     def create_competitors
-      @competitors = []
       Challenge.all.each do |challenge|
-        @competitors.append(challenge.competitors.create name: "Jonathan", email: "jonathan@gmail.com", password: "secret123", generated_password: "secret123", age: 17)
-        @competitors.append(challenge.competitors.create name: "Bruno", email: "bruno@gmail.com", password: "secret123", generated_password: "secret123", age: 17)
-        @competitors.append(challenge.competitors.create name: "Victor", email: "victor@gmail.com", password: "secret123", generated_password: "secret123", age: 17)
-        @competitors.append(challenge.competitors.create name: "Kramer", email: "kramer@gmail.com", password: "secret123", generated_password: "secret123", age: 17)
+        challenge.competitors.create name: "Jonathan", email: "jonathan@gmail.com", password: "secret123", generated_password: "secret123", age: 17
+        challenge.competitors.create name: "Bruno", email: "bruno@gmail.com", password: "secret123", generated_password: "secret123", age: 17
+        challenge.competitors.create name: "Victor", email: "victor@gmail.com", password: "secret123", generated_password: "secret123", age: 17
+        challenge.competitors.create name: "Kramer", email: "kramer@gmail.com", password: "secret123", generated_password: "secret123", age: 17
         puts "---> Created competitor"
       end
     end
 
-    def create_exams_and_questions
-      @competitors.each do |competitor|
-        exam = competitor.build_exam
-        15.times.with_index do |index|
-          question = exam.questions.new name: "Lollipops and Toothbrushes", difficulty: rand(1..3), age_group: rand(1..3), explanation: "This is the explanation of the question number #{index+1}", title: "This is the title of the question", html: '<div class="exam__explanation"><p>The little beaver found a corridor full of lollipops and toothbrushes. He starts to walk along the corridor to eat lollipops and he cannot move backward.</p><p>The beaver can always brush his teeth when finding a brush. After eating two lollipops, he must brush his teeth before eating another lollipop.</p><p>In each step he can only eat the lollipop <strong>OR</strong> brush his teeth <strong>OR</strong> keep walking. He cannot take a lollipop or a toothbrush with him to the next step. <strong>How many lollipops can he eat at most while keeping his teeth healthy?</strong></p></div>'
-          if question.valid?
-            question.save
-          else
-            raise "Question index+1: #{index+1} is invalid"
-          end
+    def create_question_and_alternative
+      alterntive_symbols = ["A", "B", "C", "D"]
+      60.times.with_index do |index|
+        question = Question.new name: "Lollipops and Toothbrushes", difficulty: rand(1..3), age_group: rand(1..3), explanation: "This is the explanation of the question number #{index+1}", title: "This is the title of the question", html: '<div class="exam__explanation"><p>The little beaver found a corridor full of lollipops and toothbrushes. He starts to walk along the corridor to eat lollipops and he cannot move backward.</p><p>The beaver can always brush his teeth when finding a brush. After eating two lollipops, he must brush his teeth before eating another lollipop.</p><p>In each step he can only eat the lollipop <strong>OR</strong> brush his teeth <strong>OR</strong> keep walking. He cannot take a lollipop or a toothbrush with him to the next step. <strong>How many lollipops can he eat at most while keeping his teeth healthy?</strong></p></div>'
+        4.times.with_index do |inner_index|
+          question.alternatives.new alternative_symbol: alterntive_symbols[inner_index], description: "test", html_text: '<div class="exam__alternative">4</div>'
         end
-
-        exam.save
+        if question.valid?
+          question.save
+        else
+          raise "Question error #{question.errors}"
+        end
       end
-      puts "---> Created exams and questions"
+      puts "---> Created questions and alternatives"
     end
 
-    def create_alternatives
-      alterntive_symbols = ["A", "B", "C", "D"]
+    def setup_exam
+      @competitors = Competitor.all
       @competitors.each do |competitor|
-        questions = competitor.exam.questions
-        questions.each do |question|
-          4.times.with_index do |index|
-            alternative = question.alternatives.new alternative_symbol: alterntive_symbols[index], description: "test", html_text: '<div class="exam__alternative">4</div>'
-            if alternative.valid?
-              alternative.save
-            else
-              raise "Alternative failed"
-            end
-          end
+        questions = Question.order("RAND()").limit(15)
+        exam = competitor.build_exam
+        exam.questions = questions
+        if exam.valid?
+          exam.save
+        else
+          raise "Setup error #{competitor.errors}"
         end
       end
-      puts "---> Created alternatives"
+      puts "---> Random questions to competitor"
     end
 
     def create_durations

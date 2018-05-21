@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180514205017) do
+ActiveRecord::Schema.define(version: 20180517215316) do
 
   create_table "alternatives", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "alternative_symbol"
@@ -106,8 +106,8 @@ ActiveRecord::Schema.define(version: 20180514205017) do
     t.bigint "question_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "alternatives_id"
-    t.index ["alternatives_id"], name: "index_exams_questions_on_alternatives_id"
+    t.bigint "alternative_id"
+    t.index ["alternative_id"], name: "index_exams_questions_on_alternative_id"
     t.index ["exam_id"], name: "index_exams_questions_on_exam_id"
     t.index ["question_id"], name: "index_exams_questions_on_question_id"
   end
@@ -129,7 +129,7 @@ ActiveRecord::Schema.define(version: 20180514205017) do
   add_foreign_key "challenges", "deputies"
   add_foreign_key "competitors", "challenges"
   add_foreign_key "exams", "competitors"
-  add_foreign_key "exams_questions", "alternatives", column: "alternatives_id"
+  add_foreign_key "exams_questions", "alternatives"
   add_foreign_key "exams_questions", "exams"
   add_foreign_key "exams_questions", "questions"
 end

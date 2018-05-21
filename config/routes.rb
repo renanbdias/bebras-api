@@ -30,9 +30,9 @@ Rails.application.routes.draw do
       end
 
       resources :questions, only: [:index] do
-        # member do
-        #   post :answer
-        # end
+        member do
+          post :answer
+        end
       end
     end
 	end

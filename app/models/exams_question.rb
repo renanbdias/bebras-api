@@ -1,3 +1,3 @@
 class ExamsQuestion < ApplicationRecord
-  has_one :answear, inverse_of :exam_question
+  belongs_to :alternative, inverse_of: :exams_question
 end
