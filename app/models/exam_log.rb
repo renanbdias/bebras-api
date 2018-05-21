@@ -1,0 +1,2 @@
+class ExamLog < ApplicationRecord
+end

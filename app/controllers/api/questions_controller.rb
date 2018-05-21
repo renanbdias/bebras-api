@@ -27,7 +27,10 @@ class Api::QuestionsController < ApplicationController
 
     answers.each do |answer|
       ## If some error occurs I'll just ignore it since I try to save the other answers.
-      AnswerQuestionService.call(competitor: current_api_competitor, question_id: answer[:question_id], alternative_id: answer[:alternative_id])
+      response = AnswerQuestionService.call(competitor: current_api_competitor, question_id: answer[:question_id], alternative_id: answer[:alternative_id])
+      unless response.success?
+        ExamLog.create error: "#{response.error}. Questão: #{answer[:question_id]}, Alternativa: #{answer[:alternative_id]}, Aluno: #{current_api_competitor.id}"
+      end
     end
 
     render json: {}, status: :ok  # "render nothing: true, status: :ok" not working oO ???

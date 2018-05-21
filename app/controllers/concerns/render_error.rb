@@ -9,7 +9,7 @@ module RenderError
     else
       render json: {
         errors: [error.inspect],
-        debug: Rails.env.development? ? error.inspect : nil
+        # debug: Rails.env.development? ? error.inspect : nil
       }, status: :unprocessable_entity
     end
   end
@@ -18,7 +18,7 @@ module RenderError
     def render_string_error error_string
       render json: {
         errors: [error_string],
-        debug: Rails.env.development? ? error_string.inspect : nil
+        # debug: Rails.env.development? ? error_string.inspect : nil
       }, status: :unprocessable_entity
     end
 
@@ -26,14 +26,14 @@ module RenderError
       render json: {
         errors: errors.full_messages,
         fields: errors,
-        debug: Rails.env.development? ? errors.inspect : nil
+        # debug: Rails.env.development? ? errors.inspect : nil
       }, status: :unprocessable_entity
     end
 
     def render_exception_error exception
       render json: {
         errors: [exception.message],
-        debug: Rails.env.development? ? exception.inspect : nil
+        # debug: Rails.env.development? ? exception.inspect : nil
       }, status: :unprocessable_entity
     end
 end
