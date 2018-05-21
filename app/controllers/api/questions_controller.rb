@@ -21,10 +21,21 @@ class Api::QuestionsController < ApplicationController
     end
   end
 
+  ## POST /api/v1/questions/:id/answer_questions
+  def answer_questions
+    answers = params[:answers]
+
+    answers.each do |answer|
+      ## If some error occurs I'll just ignore it since I try to save the other answers.
+      AnswerQuestionService.call(competitor: current_api_competitor, question_id: answer[:question_id], alternative_id: answer[:alternative_id])
+    end
+
+    render json: {}, status: :ok  # "render nothing: true, status: :ok" not working oO ???
+  end
+
   private
     def answer_params
       params.permit(:alternative_id)
     end
-
 end
 

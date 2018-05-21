@@ -32,6 +32,7 @@ Rails.application.routes.draw do
       resources :questions, only: [:index] do
         member do
           post :answer
+          post :answer_questions
         end
       end
     end
