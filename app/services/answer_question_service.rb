@@ -40,9 +40,10 @@ class AnswerQuestionService < BusinessProcess::Base
     end
 
     def get_selected_alternative
-      unless @selected_alternative = @question.alternatives.find_by(id: alternative_id)
-        fail "Alternativa selecionada não encontrada"
-      end
+      # unless @selected_alternative = @question.alternatives.find_by(id: alternative_id)
+      #   fail "Alternativa selecionada não encontrada"
+      # end
+      @selected_alternative = @question.alternatives.find_by(id: alternative_id)
     end
 
     def get_exam_question
