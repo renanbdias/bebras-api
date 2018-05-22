@@ -5,6 +5,7 @@ class Deputy < ActiveRecord::Base
   include DeviseTokenAuth::Concerns::User
 
   has_many :challenges, inverse_of: :deputy
+  belongs_to :school, inverse_of: :deputies
 
   validates :name, :email, :phone, presence: true
 

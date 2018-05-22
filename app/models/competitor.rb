@@ -4,7 +4,7 @@ class Competitor < ActiveRecord::Base
   include DeviseTokenAuth::Concerns::User
 
   belongs_to :challenge, inverse_of: :competitors
-
+  belongs_to :school, inverse_of: :competitors
   has_one :exam, inverse_of: :competitor, dependent: :destroy
 
   validates :name, :email, :generated_password, :age, presence: true
