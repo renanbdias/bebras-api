@@ -9,7 +9,7 @@ class Api::ChallengesController < ApplicationController
     if response.success?
       render json: response.result, status: :ok
     else
-      render_error response.error
+      render_error response.errorme
     end
   end
 
