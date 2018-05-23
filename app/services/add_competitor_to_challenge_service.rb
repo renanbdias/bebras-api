@@ -10,6 +10,7 @@ class AddCompetitorToChallengeService < BusinessProcess::Base
 
   steps :get_challenge,
         :create_competitor,
+        :associate_competitor_with_deputy_school,
         :add_competitor_to_exam
 
   def call
@@ -32,6 +33,10 @@ class AddCompetitorToChallengeService < BusinessProcess::Base
       unless @competitor = Competitor.new(name: name, email: email, age: age, password: generated_password, generated_password: generated_password)
         fail "Error creating competitor"
       end
+    end
+
+    def associate_competitor_with_deputy_school
+      @competitor.school = deputy.school
     end
 
     def add_competitor_to_exam

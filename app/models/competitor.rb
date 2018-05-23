@@ -7,6 +7,6 @@ class Competitor < ActiveRecord::Base
   belongs_to :school, inverse_of: :competitors
   has_one :exam, inverse_of: :competitor, dependent: :destroy
 
-  validates :name, :email, :generated_password, :age, presence: true
+  validates :name, :email, :generated_password, :age, :school, presence: true
 
 end

@@ -7,6 +7,6 @@ class Deputy < ActiveRecord::Base
   has_many :challenges, inverse_of: :deputy
   belongs_to :school, inverse_of: :deputies
 
-  validates :name, :email, :phone, presence: true
+  validates :name, :email, :phone, :school, presence: true
 
 end
