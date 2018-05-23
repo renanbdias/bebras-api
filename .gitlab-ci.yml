@@ -13,6 +13,7 @@ build:
     - gem install bundle
     - bundle
     - rails db:migrate
+    - rails db:migrate RAILS_ENV=test
     - echo "Done build"
   script:
     - rspec
