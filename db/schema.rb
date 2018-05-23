@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180521213332) do
+ActiveRecord::Schema.define(version: 20180522202952) do
 
   create_table "alternatives", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "alternative_symbol"
@@ -59,9 +59,11 @@ ActiveRecord::Schema.define(version: 20180521213332) do
     t.bigint "challenge_id"
     t.string "generated_password"
     t.integer "age"
+    t.bigint "school_id"
     t.index ["challenge_id"], name: "index_competitors_on_challenge_id"
     t.index ["email"], name: "index_competitors_on_email", unique: true
     t.index ["reset_password_token"], name: "index_competitors_on_reset_password_token", unique: true
+    t.index ["school_id"], name: "index_competitors_on_school_id"
     t.index ["uid", "provider"], name: "index_competitors_on_uid_and_provider", unique: true
   end
 
@@ -83,8 +85,10 @@ ActiveRecord::Schema.define(version: 20180521213332) do
     t.text "tokens"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "school_id"
     t.index ["email"], name: "index_deputies_on_email", unique: true
     t.index ["reset_password_token"], name: "index_deputies_on_reset_password_token", unique: true
+    t.index ["school_id"], name: "index_deputies_on_school_id"
     t.index ["uid", "provider"], name: "index_deputies_on_uid_and_provider", unique: true
   end
 
@@ -131,9 +135,22 @@ ActiveRecord::Schema.define(version: 20180521213332) do
     t.index ["right_alternative_id"], name: "index_questions_on_right_alternative_id"
   end
 
+  create_table "schools", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "name"
+    t.string "phone"
+    t.string "address"
+    t.string "cep"
+    t.string "city"
+    t.string "state"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   add_foreign_key "alternatives", "questions"
   add_foreign_key "challenges", "deputies"
   add_foreign_key "competitors", "challenges"
+  add_foreign_key "competitors", "schools"
+  add_foreign_key "deputies", "schools"
   add_foreign_key "exams", "competitors"
   add_foreign_key "exams_questions", "alternatives"
   add_foreign_key "exams_questions", "exams"
