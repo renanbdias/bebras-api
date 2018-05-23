@@ -5,8 +5,9 @@ FactoryBot.define do
     password "secret123"
     generated_password "secret123"
     age Faker::Number.digit
+    school { create(:school) }
 
-    challenge { create :challenge }
+    challenge { create(:challenge) }
 
     trait :renan do
       name "Renan Dias"
@@ -14,7 +15,8 @@ FactoryBot.define do
       uid "renan@jera.com.br"
       password "secret123"
       generated_password "secret123"
-      challenge { create :challenge }
+      challenge { create(:challenge) }
+      school { create(:school) }
     end
 
     trait :competitor_with_exam_and_questions do
@@ -22,8 +24,9 @@ FactoryBot.define do
       email Faker::Internet.email
       password "secret123"
       generated_password "secret123"
-      challenge { create :challenge }
-      exam { create :exam }
+      challenge { create(:challenge) }
+      exam { create(:exam) }
+      school { create(:school) }
     end
   end
 end

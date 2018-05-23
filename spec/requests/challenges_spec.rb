@@ -1,6 +1,6 @@
 RSpec.describe "Challenges" do
 
-  let(:deputy) { create :deputy, :deputy_with_challenges }
+  # let(:deputy) { create :deputy, :deputy_with_challenges }
   # let(:competitor) { create :competitor }
 
   # # /api/v1/challenges/
@@ -21,23 +21,25 @@ RSpec.describe "Challenges" do
   # context "Create challenge" do
   # end
 
-  context "Add competitor" do
-    before :each do
-      @challenge = deputy.challenges.first
-      @competitors_count_before = @challenge.competitors.count
-      @response = AddCompetitorToChallengeService.call(deputy: deputy,
-                                                    challenge_id: @challenge.id,
-                                                    name: Faker::Name.first_name,
-                                                    email: Faker::Internet.email,
-                                                    age: Faker::Number.digit)
-      expect(response.success?).to be true
-    end
+  # subject(:deputy) { build(:deputy) }
+  # context "Add competitor" do
 
-    it "must have more competitors than before" do
-      expect(@challenge.competitors.count).to be > @competitors_count_before
-    end
+  #   before :each do
+  #     @challenge = deputy.challenges.first
+  #     @competitors_count_before = @challenge.competitors.count
+  #     @response = AddCompetitorToChallengeService.call(deputy: deputy,
+  #                                                   challenge_id: @challenge.id,
+  #                                                   name: Faker::Name.first_name,
+  #                                                   email: Faker::Internet.email,
+  #                                                   age: Faker::Number.digit)
+  #     expect(response.success?).to be true
+  #   end
 
-  end
+  #   it "must have more competitors than before" do
+  #     expect(@challenge.competitors.count).to be > @competitors_count_before
+  #   end
+
+  # end
 
   # context "Start challenge" do
 
