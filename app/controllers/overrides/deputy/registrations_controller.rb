@@ -2,8 +2,8 @@ module Overrides
   class Deputy::RegistrationsController < DeviseTokenAuth::RegistrationsController
 
     def edit
-      if current_api_user
-        render json: current_api_user, status: 200
+      if current_api_deputy
+        render json: current_api_deputy, status: 200
       else
         render json: {
             errors: ["Invalid login credentials"]
@@ -12,7 +12,7 @@ module Overrides
     end
 
     def update
-      if current_api_user
+      if current_api_deputy
         begin
           super
         rescue Exception => e
