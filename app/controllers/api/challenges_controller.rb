@@ -1,5 +1,5 @@
 class Api::ChallengesController < ApplicationController
-  before_action :authenticate_api_deputy!, only: [:index, :create, :start_challenge, :end_challenge, :competitors, :add_competitor, :update, :destroy, :remove_competitor]
+  before_action :authenticate_api_deputy!, only: [:index, :create, :start_challenge, :end_challenge, :competitors, :add_competitor, :update, :destroy, :remove_competitor, :update_competitor]
   before_action :authenticate_api_competitor!, only: [:firebase_token, :get_challenge]
   # TODO change to except later
 
@@ -63,6 +63,21 @@ class Api::ChallengesController < ApplicationController
     end
   end
 
+  ## PATCH /api/v1/challenges/:id/update_competitor
+  def update_competitor
+    response = UpdateCompetitorService.call(deputy: current_api_deputy,
+                                                    challenge_id: params[:id],
+                                                    competitor_id: update_competitor_params[:competitor_id],
+                                                    name: update_competitor_params[:name],
+                                                    email: update_competitor_params[:email],
+                                                    age: update_competitor_params[:age])
+    if response.success?
+      render json: response.result, status: :ok
+    else
+      render_error response.error
+    end
+  end
+
   ## POST /api/v1/challenges/:id/add_competitor
   def add_competitor
     response = AddCompetitorToChallengeService.call(deputy: current_api_deputy,
@@ -116,6 +131,10 @@ class Api::ChallengesController < ApplicationController
   end
 
   private
+    def update_competitor_params
+      params.permit(:competitor_id, :name, :email, :age)
+    end
+
     def remove_competitor_params
       params.permit(:competitor_id)
     end

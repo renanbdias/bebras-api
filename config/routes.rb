@@ -21,6 +21,7 @@ Rails.application.routes.draw do
           get :competitors
           post :add_competitor
           post :remove_competitor
+          patch :update_competitor
         end
         collection do
           get 'current_server_time', to: 'challenges#current_server_time'
