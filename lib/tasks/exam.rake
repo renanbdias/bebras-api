@@ -15,6 +15,21 @@ namespace :exam do
     create_competitors
   end
 
+  desc "create_durations"
+  task create_competitors: :environment do
+    create_durations
+  end
+
+  desc "create_deputy"
+  task create_deputy: :environment do
+    create_deputy
+  end
+
+  desc "create_challenge"
+  task create_challenge: :environment do
+    create_challenge
+  end
+
   desc "create_question_and_alternative"
   task create_question_and_alternative: :environment do
     create_question_and_alternative
