@@ -13,14 +13,25 @@ module Overrides
 
     def update
       if current_api_deputy
-        begin
-          super
-        rescue Exception => e
-          render json: {
-              errors: [e.message],
-              debug: Rails.env.development? ? e.inspect : nil
-          }, status: 422
+        school = params[:school]
+
+        serviceResponse = UpdateDeputyService.call(deputy: current_api_deputy,
+                                                    name: params[:name],
+                                                    email: params[:email],
+                                                    phone: params[:phone],
+                                                    school_name: school[:name],
+                                                    school_phone: school[:phone],
+                                                    school_address: school[:address],
+                                                    school_cep: school[:cep],
+                                                    school_city: school[:city],
+                                                    school_state: school[:state])
+
+        if serviceResponse.success?
+          render json: serviceResponse.result, status: :ok
+        else
+          render_error serviceResponse.error
         end
+
       else
         render json: {
             errors: ["Invalid login credentials"]
