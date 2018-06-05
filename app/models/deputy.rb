@@ -25,7 +25,7 @@ class Deputy < ActiveRecord::Base
   	field :phone do
   		label "Telefone"
   	end
-  	
+
   	field :school do
   		label "Instituição de Ensino"
   		help "É a instituição de ensino que está relacionado com o delegado"
