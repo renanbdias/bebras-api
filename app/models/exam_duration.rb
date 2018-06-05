@@ -7,6 +7,10 @@ class ExamDuration < ApplicationRecord
   	label "Duração do Desafio"
   	label_plural "Durações do Desafio"
 
+  	field :exam_duration_in_minutes do
+  		label "Duração em minutos"
+  	end
+
   end
   
 end
