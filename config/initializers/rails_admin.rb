@@ -25,13 +25,28 @@ RailsAdmin.config do |config|
 
   config.actions do
     dashboard                     # mandatory
-    index                         # mandatory
-    new
+    # mandatory
+    index do
+      except ['ExamsQuestion', 'ExamLog']
+    end
+
+    new do
+      except ['Exam', 'ExamsQuestion', 'Competitor', 'ExamLog', 'Challenge', 'Deputy', 'ExamDuration']
+    end
+
     export
-    bulk_delete
+    # bulk_delete
+
     show
-    edit
-    delete
+
+    edit do
+      except ['Exam', 'ExamsQuestion', 'Competitor', 'ExamLog', 'Challenge']
+    end
+
+    delete do
+      except ['Exam', 'ExamsQuestion', 'Competitor', 'ExamLog', 'Challenge', 'ExamDuration']
+    end
+
     show_in_app
 
     ## With an audit adapter, you can add:
