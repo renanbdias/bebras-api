@@ -1,12 +1,21 @@
 class Question < ApplicationRecord
   has_and_belongs_to_many :exams, inverse_of: :questions
-  has_many :alternatives, inverse_of: :question
+  has_many :alternatives, inverse_of: :question, dependent: :destroy
 
   belongs_to :right_alternative, class_name: "Alternative", optional: true
 
   validates :title, :difficulty, :explanation, :age_group, :name, :html, presence: true
 
-  accepts_nested_attributes_for :alternatives, allow_destroy: true 
+  # enum type_of_discount: [ :price, :percentage ]
+
+  enum age_group: [ :five_to_seven,
+                    :eight_to_nine,
+                    :ten_to_eleven,
+                    :twelve_to_thirteen,
+                    :forteen_to_fifteen,
+                    :sixteen_to_nineteen ]
+
+  accepts_nested_attributes_for :alternatives, allow_destroy: true
 
   rails_admin do
   	navigation_label "Gerenciar"
@@ -25,7 +34,7 @@ class Question < ApplicationRecord
 
   	field :age_group do
   		label "Grupo de Idade"
-  		help "É o grupo de idade que a questão pertence (1 - [5 à 8 anos], 2 - [8 à 10 anos], 3 - [10 à 12 anos], 4 - [12 à 14 anos], 5 - [14 à 16 anos], 6 - [16 à 19 anos])."
+  		help "É o grupo de idade que a questão pertence (1 - [5 à 7 anos], 2 - [8 à 9 anos], 3 - [10 à 11 anos], 4 - [12 à 13 anos], 5 - [14 à 15 anos], 6 - [16 à 19 anos])."
   	end
 
   	field :explanation do
@@ -46,7 +55,7 @@ class Question < ApplicationRecord
     field :alternatives do
   		label "Alternativa"
   		help "São as alternativas que compõem a questão."
-  	end 	
+  	end
 
   	field :exams do
   		label "Exames"
@@ -87,12 +96,12 @@ class Question < ApplicationRecord
       field :alternatives do
         label "Alternativa"
         help "São as alternativas que compõem a questão."
-      end 
+      end
 
       field :right_alternative do
         label "Alternativa Correta"
         help "É alternativa correta da questão."
-      end   
+      end
 
       field :exams do
         label "Exames"

@@ -11,7 +11,8 @@ class AddCompetitorToChallengeService < BusinessProcess::Base
   steps :get_challenge,
         :create_competitor,
         :associate_competitor_with_deputy_school,
-        :add_competitor_to_exam
+        :add_competitor_to_challenge,
+        :generate_competitor_exam
 
   def call
     handle_exception do
@@ -39,7 +40,7 @@ class AddCompetitorToChallengeService < BusinessProcess::Base
       @competitor.school = deputy.school
     end
 
-    def add_competitor_to_exam
+    def add_competitor_to_challenge
       @challenge.competitors.append @competitor
       unless @challenge.valid? && @challenge.save
         @competitor.destroy
@@ -47,5 +48,10 @@ class AddCompetitorToChallengeService < BusinessProcess::Base
       end
     end
 
-    # TODO generate exam with questions (might be on another service)
+    def generate_competitor_exam
+      response = GenerateExamForCompetitorService.call(competitor: @competitor)
+      unless response.success?
+        fail "Error generating exam #{response.error}"
+      end
+    end
 end
