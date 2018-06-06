@@ -62,7 +62,7 @@ class UpdateDeputyService < BusinessProcess::Base
         deputy.school.state = school_state
       end
 
-      unless deputy.valid? && deputy.save
+      unless deputy.school.valid? && deputy.school.save && deputy.valid? && deputy.save
         fail("Failed to update deputy, errors: #{deputy.errors}")
       end
     end
