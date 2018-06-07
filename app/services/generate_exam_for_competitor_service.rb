@@ -39,7 +39,6 @@ class GenerateExamForCompetitorService < BusinessProcess::Base
     end
 
     def generate_exam_for_age_group age_group
-      byebug
       @exam = competitor.build_exam
       @exam.questions = Question.order("RAND()").where(age_group: age_group).limit(15)
       @exam.valid? && @exam.save
