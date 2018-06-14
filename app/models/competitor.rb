@@ -8,6 +8,7 @@ class Competitor < ActiveRecord::Base
   has_one :exam, inverse_of: :competitor, dependent: :destroy
 
   validates :name, :email, :generated_password, :age, :school, presence: true
+  validates :age, numericality: { greater_than: 0, less_than: 100 }
 
   rails_admin do
   	navigation_label "Listar"

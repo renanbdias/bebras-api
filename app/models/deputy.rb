@@ -9,10 +9,18 @@ class Deputy < ActiveRecord::Base
 
   validates :name, :email, :phone, :school, presence: true
 
+  def active_for_authentication?
+    super && self.active
+  end
+
   rails_admin do
   	navigation_label "Listar"
   	label "Delegado"
   	label_plural "Delegados"
+
+    field :active do
+      label "Confirmado"
+    end
 
   	field :name do
   		label "Nome Completo"

@@ -14,6 +14,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'turbolinks'
 gem 'firebase'
 gem 'rails_admin'
+gem 'rails-i18n'
 
 # Devise
 gem 'devise_token_auth'

@@ -62,10 +62,10 @@ module Overrides
         if deputy.valid?
           deputy.save
 
-          sign_in(:deputy, deputy)
+          # sign_in(:deputy, deputy)
 
-          auth_headers = deputy.create_new_auth_token
-          response.headers.merge!(auth_headers)
+          # auth_headers = deputy.create_new_auth_token
+          # response.headers.merge!(auth_headers)
 
           render json: deputy, status: :ok
         else
