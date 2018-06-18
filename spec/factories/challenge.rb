@@ -29,6 +29,5 @@ FactoryBot.define do
 
       competitors { build_list :competitor, 5 }
     end
-
   end
 end
